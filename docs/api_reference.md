@@ -1,28 +1,87 @@
 [C_NamePlates](#c_nameplate) - [Unit](#unit) - [Inventory](#inventory) - [Misc](#misc)
 
 # C_NamePlate
-Backported C-Lua interfaces from retail
+Backported C-Lua interfaces from retail and added custom distance-related functions
 
 ## C_NamePlate.GetNamePlateForUnit`API`
 Arguments: **unitId** `string`
 
-Returns: **namePlate**`frame`
+Returns: **namePlate** `frame`
 
 Get nameplates by unitId
 ```lua
-frame = C_NamePlate.GetNamePlateForUnit("target")
+local namePlate = C_NamePlate.GetNamePlateForUnit("target")
 ```
 
 ## C_NamePlate.GetNamePlates`API`
 Arguments: `none`
 
-Returns: **namePlateList**`table`
+Returns: **namePlateList** `table`
 
 Get all visible nameplates
 ```lua
-for _, nameplate in pairs(C_NamePlate.GetNamePlates()) do
-  -- something
+for i, nameplate in pairs(C_NamePlate.GetNamePlates()) do
+  -- something with nameplate
 end
+```
+
+## C_NamePlate.GetNamePlatesDistance`API`
+Arguments: `none`
+
+Returns: **namePlateDistanceHash** `table`
+
+Get a hash table mapping all visible nameplates to their distances relative to the player.
+```lua
+local distanceHash = C_NamePlate.GetNamePlatesDistance()
+local namePlate = C_NamePlate.GetNamePlateForUnit("target")
+local distance = distanceHash[namePlate]
+-- Iterate over all nameplates
+for nameplate, distance in pairs(distanceHash) do
+  -- something with nameplate and distance
+end
+```
+
+## C_NamePlate.GetNamePlatesDistanceList`API`
+Arguments: `none`
+
+Returns: **namePlateDistanceList** `table`
+
+Get an indexed list of all visible nameplates and their distances relative to the player
+```lua
+for i, entry in ipairs(C_NamePlate.GetNamePlatesDistanceList()) do
+  -- something with entry.nameplate and entry.distance
+end
+```
+
+## C_NamePlate.GetDistanceForUnit`API`
+Arguments: **unitId** `string`
+
+Returns: **distance** `number`
+
+Get distance by unitId
+```lua
+local distance = C_NamePlate.GetDistanceForUnit("target")
+```
+
+## C_NamePlate.GetDistanceForGUID`API`
+Arguments: **GUID** `string`
+
+Returns: **distance** `number`
+
+Get distance by GUID
+```lua
+local distance = C_NamePlate.GetDistanceForGUID(UnitGUID("target"))
+```
+
+## C_NamePlate.GetDistanceForNamePlate`API`
+Arguments: **namePlate** `frame`
+
+Returns: **distance** `number`
+
+Get distance by namePlate
+```lua
+local namePlate = C_NamePlate.GetNamePlateForUnit("target")
+local distance = C_NamePlate.GetDistanceForNamePlate(namePlate)
 ```
 
 ## NAME_PLATE_CREATED`Event`
