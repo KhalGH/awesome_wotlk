@@ -12,6 +12,11 @@ ___
 > - New API:<br>
     - C_NamePlate.GetNamePlates<br>
     - C_NamePlate.GetNamePlateForUnit<br>
+    - C_NamePlate.GetNamePlatesDistance<br>
+    - C_NamePlate.GetNamePlatesDistanceList<br>
+    - C_NamePlate.GetDistanceForUnit<br>
+    - C_NamePlate.GetDistanceForGUIDt<br>
+    - C_NamePlate.GetDistanceForNamePlatet<br>
     - UnitIsControlled<br>
     - UnitIsDisarmed<br>
     - UnitIsSilenced<br>
