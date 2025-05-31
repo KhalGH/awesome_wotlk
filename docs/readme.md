@@ -15,8 +15,8 @@ ___
     - C_NamePlate.GetNamePlatesDistance<br>
     - C_NamePlate.GetNamePlatesDistanceList<br>
     - C_NamePlate.GetDistanceForUnit<br>
-    - C_NamePlate.GetDistanceForGUIDt<br>
-    - C_NamePlate.GetDistanceForNamePlatet<br>
+    - C_NamePlate.GetDistanceForGUID<br>
+    - C_NamePlate.GetDistanceForNamePlate<br>
     - UnitIsControlled<br>
     - UnitIsDisarmed<br>
     - UnitIsSilenced<br>
