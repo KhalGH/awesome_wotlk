@@ -3,16 +3,6 @@
 # C_NamePlate
 Backported C-Lua interfaces from retail and added custom distance-related functions
 
-## C_NamePlate.GetNamePlateForUnit`API`
-Arguments: **unitId** `string`
-
-Returns: **namePlate** `frame`
-
-Get nameplates by unitId
-```lua
-local namePlate = C_NamePlate.GetNamePlateForUnit("target")
-```
-
 ## C_NamePlate.GetNamePlates`API`
 Arguments: `none`
 
@@ -23,6 +13,37 @@ Get all visible nameplates
 for i, nameplate in pairs(C_NamePlate.GetNamePlates()) do
   -- something with nameplate
 end
+```
+
+## C_NamePlate.GetNamePlateForUnit`API`
+Arguments: **unitId** `string`
+
+Returns: **namePlate** `frame`
+
+Get nameplates by unitId
+```lua
+local namePlate = C_NamePlate.GetNamePlateForUnit("target")
+```
+
+## C_NamePlate.GetNamePlateForGUID`API`
+Arguments: **GUID** `string`
+
+Returns: **namePlate** `frame`
+
+Get nameplates by GUID
+```lua
+local namePlate = C_NamePlate.GetNamePlateForGUID(UnitGUID("target"))
+```
+
+## C_NamePlate.GetGUIDForNamePlate`API`
+Arguments: **namePlate** `frame`
+
+Returns: **GUID** `string` 
+
+Get GUID by nameplate
+```lua
+local namePlate = C_NamePlate.GetNamePlateForUnit("target")
+local GUID = C_NamePlate.GetGUIDForNamePlate(namePlate)
 ```
 
 ## C_NamePlate.GetNamePlatesDistance`API`
