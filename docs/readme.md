@@ -43,7 +43,7 @@ See [Docs](https://github.com/KhalGH/awesome_wotlk/blob/main/docs/api_reference.
 4) To update just download and replace dll
 
 ## For suggestions
-Join us at [Discord](https://discord.gg/NNnBTK5c8e) - [Telegram](https://t.me/wow_soft)
+Join us at [Discord](https://discord.gg/rWCnDjTaap) - [Telegram](https://t.me/wow_soft)
 <br><img src="https://raw.githubusercontent.com/FrostAtom/awesome_wotlk/main/docs/assets/wow_soft.jpg" width="148" height="148">
 
 ## 3rd party libraries
