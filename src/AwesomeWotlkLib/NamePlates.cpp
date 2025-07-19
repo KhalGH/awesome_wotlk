@@ -125,6 +125,54 @@ static int C_NamePlate_GetNamePlateForUnit(lua_State* L)
     return 1;
 }
 
+static int C_NamePlate_GetNamePlateForGUID(lua_State* L)
+{
+    const char* guidStr = luaL_checkstring(L, 1);
+    if (!guidStr || strncmp(guidStr, "0x", 2) != 0) {
+        lua_pushnil(L);
+        return 1;
+    }
+    guid_t guid = 0;
+    int matched = sscanf(guidStr, "0x%llx", &guid);
+    if (matched != 1 || guid == 0) {
+        lua_pushnil(L);
+        return 1;
+    }
+    NamePlateEntry* entry = getEntryByGuid(guid);
+    if (!entry || !entry->nameplate) {
+        lua_pushnil(L);
+        return 1;
+    }
+    lua_pushframe(L, entry->nameplate);
+    return 1;
+}
+
+static int C_NamePlate_GetGUIDForNamePlate(lua_State* L)
+{
+    NamePlateVars& vars = lua_findorcreatevars(L);
+    if (!lua_istable(L, 1)) {
+        lua_pushnil(L);
+        return 1;
+    }
+    lua_rawgeti(L, 1, 0);
+    if (!lua_isuserdata(L, -1)) {
+        lua_pushnil(L);
+        return 1;
+    }
+    void* nameplateUserdata = lua_touserdata(L, -1);
+    lua_pop(L, 1);
+    for (const NamePlateEntry& entry : vars.nameplates) {
+        if ((entry.flags & NamePlateFlag_Visible) && entry.guid && entry.nameplate == nameplateUserdata) {
+            char guidStr[32];
+            snprintf(guidStr, sizeof(guidStr), "0x%016llX", entry.guid);
+            lua_pushstring(L, guidStr);
+            return 1;
+        }
+    }
+    lua_pushnil(L);
+    return 1;
+}
+
 static int C_NamePlate_GetNamePlatesDistance(lua_State* L)
 {
     lua_createtable(L, 0, 0);
@@ -251,7 +299,8 @@ static int C_NamePlate_GetDistanceForGUID(lua_State* L)
     return 1;
 }
 
-static int C_NamePlate_GetDistanceForNamePlate(lua_State* L) {
+static int C_NamePlate_GetDistanceForNamePlate(lua_State* L)
+{
     NamePlateVars& vars = lua_findorcreatevars(L);
     Player* player = ObjectMgr::GetPlayer();
     if (!player) {
@@ -292,6 +341,8 @@ static int lua_openlibnameplates(lua_State* L)
     luaL_Reg methods[] = {
         {"GetNamePlates", C_NamePlate_GetNamePlates},
         {"GetNamePlateForUnit", C_NamePlate_GetNamePlateForUnit},
+        {"GetNamePlateForGUID", C_NamePlate_GetNamePlateForGUID},
+        {"GetGUIDForNamePlate", C_NamePlate_GetGUIDForNamePlate},
         {"GetNamePlatesDistance", C_NamePlate_GetNamePlatesDistance},
         {"GetNamePlatesDistanceList", C_NamePlate_GetNamePlatesDistanceList},
         {"GetDistanceForUnit", C_NamePlate_GetDistanceForUnit},
@@ -344,7 +395,7 @@ static void onUpdateCallback()
             VecXYZ unitPos;
             unit->vmt->GetPosition(unit, &unitPos);
             s_plateSort.push_back({ unit->nameplate, guid, posPlayer.distance(unitPos) });
-        }
+        } // Comment this block to disable custom sorting
         
         return true;
     });
