@@ -12,6 +12,8 @@ ___
 > - New API:<br>
     - C_NamePlate.GetNamePlates<br>
     - C_NamePlate.GetNamePlateForUnit<br>
+    - C_NamePlate.GetNamePlateForGUID<br>
+    - C_NamePlate.GetGUIDForNamePlate<br>
     - C_NamePlate.GetNamePlatesDistance<br>
     - C_NamePlate.GetNamePlatesDistanceList<br>
     - C_NamePlate.GetDistanceForUnit<br>
