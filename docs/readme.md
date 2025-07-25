@@ -5,7 +5,6 @@
 
 ___
 ## Details
-> - BugFix: clipboard issue when non-english text becomes "???"
 > - Auto Login (Through cmdline/shortcuts, Usage: `Wow.exe -login "LOGIN" -password "PASSWORD" -realmlist "REALMLIST" -realmname "REALMNAME" `)
 > - Changing cameras FOV
 > - Improved nameplates sorting
