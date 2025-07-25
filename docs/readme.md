@@ -1,8 +1,5 @@
 # Awesome WotLK
 ## World of Warcraft 3.3.5a 12340 improvements library
-
-## <b> [Details](#details) - [Installation](#installation) - [Docs](https://github.com/KhalGH/awesome_wotlk/blob/main/docs/api_reference.md) - [3rd party libraries](#3rd-party-libraries)
-
 ___
 ## Details
 > - Auto Login (Through cmdline/shortcuts, Usage: `Wow.exe -login "LOGIN" -password "PASSWORD" -realmlist "REALMLIST" -realmname "REALMNAME" `)
@@ -33,6 +30,8 @@ ___
 > - New CVars:<br>
     - nameplateDistance<br>
     - cameraFov<br>
+
+## Documentation
 See [Docs](https://github.com/KhalGH/awesome_wotlk/blob/main/docs/api_reference.md) for details
 
 ## Installation
