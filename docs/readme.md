@@ -32,7 +32,7 @@ ___
     - cameraFov<br>
 
 ## Documentation
-See [Docs](https://github.com/KhalGH/awesome_wotlk/blob/main/docs/api_reference.md) for more details
+- See [Docs](https://github.com/KhalGH/awesome_wotlk/blob/main/docs/api_reference.md) for more details
 
 ## Installation
 1) Download latest [release](https://github.com/KhalGH/awesome_wotlk/releases)
