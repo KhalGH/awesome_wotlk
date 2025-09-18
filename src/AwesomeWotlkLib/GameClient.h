@@ -264,6 +264,7 @@ inline int UnitRightClickByGuid(guid_t guid) { return ((decltype(&UnitRightClick
 inline int UnitLeftClickByGuid(guid_t guid) { return ((decltype(&UnitLeftClickByGuid))0x005274F0)(guid); }
 inline void SetMouseoverByGuid(guid_t guid, guid_t prev) { return ((decltype(&SetMouseoverByGuid))0x0051F790)(guid, prev); }
 inline guid_t GetTargetGuid() { return *(guid_t*)0x00BD07B0; }
+inline guid_t GetFocusGuid() { return *(guid_t*)0x00BD07D0; }
 
 }
 
