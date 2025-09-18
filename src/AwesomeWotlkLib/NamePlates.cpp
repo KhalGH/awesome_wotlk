@@ -368,11 +368,9 @@ static void onUpdateCallback()
     lua_State* L = GetLuaState();
     NamePlateVars& vars = lua_findorcreatevars(L);
 
-    Player* player = ObjectMgr::GetPlayer();
-    VecXYZ posPlayer;
-    if (player) player->ToUnit()->vmt->GetPosition(player->ToUnit(), &posPlayer);
+    Camera* camera = GetActiveCamera();
 
-    ObjectMgr::EnumObjects([&vars, player, &posPlayer](guid_t guid) -> bool {
+    ObjectMgr::EnumObjects([&vars, camera](guid_t guid) -> bool {
         Unit* unit = (Unit*)ObjectMgr::Get(guid, ObjectFlags_Unit);
         if (!unit || !unit->nameplate) return true;
         auto it = std::find_if(vars.nameplates.begin(), vars.nameplates.end(), [nameplate = unit->nameplate](const NamePlateEntry& entry) {
@@ -383,7 +381,8 @@ static void onUpdateCallback()
             entry.guid = guid;
             entry.nameplate = unit->nameplate;
             entry.updateId = vars.updateId;
-        } else {
+        }
+        else {
             if (it->guid != guid) {
                 // FIXME: potential problem with silent changing real unit
                 it->guid = guid;
@@ -391,11 +390,11 @@ static void onUpdateCallback()
             it->updateId = vars.updateId;
         }
 
-        if (player) {
+        if (camera) {
             VecXYZ unitPos;
             unit->vmt->GetPosition(unit, &unitPos);
-            s_plateSort.push_back({ unit->nameplate, guid, posPlayer.distance(unitPos) });
-        } // Comment this block to disable custom sorting
+            s_plateSort.push_back({ unit->nameplate, guid, camera->pos.distance(unitPos) });
+        }
         
         return true;
     });
@@ -409,9 +408,9 @@ static void onUpdateCallback()
             return distance1 > distance2;
         });
 
-        int level = 10;
+        int level = 5;
         for (auto& entry : s_plateSort)
-            CFrame::SetFrameLevel(std::get<0>(entry), level++, 1);
+            CFrame::SetFrameLevel(std::get<0>(entry), level += 5, 1);
 
         s_plateSort.clear();
     }
@@ -433,7 +432,8 @@ static void onUpdateCallback()
                 snprintf(token, std::size(token), "nameplate%d", i + 1);
                 FrameScript::FireEvent(NAME_PLATE_UNIT_ADDED, "%s", token);
             }
-        } else {
+        }
+        else {
             if (entry.flags & NamePlateFlag_Visible) {
                 char token[16];
                 snprintf(token, std::size(token), "nameplate%d", i + 1);
