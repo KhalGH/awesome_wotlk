@@ -400,11 +400,16 @@ static void onUpdateCallback()
     });
 
     if (!s_plateSort.empty()) {
-        std::sort(s_plateSort.begin(), s_plateSort.end(), [targetGuid = ObjectMgr::GetTargetGuid()](auto& a1, auto& a2) {
+        std::sort(s_plateSort.begin(), s_plateSort.end(), [targetGuid = ObjectMgr::GetTargetGuid(), focusGuid = ObjectMgr::GetFocusGuid()](auto& a1, auto& a2) {
             auto& [frame1, guid1, distance1] = a1;
             auto& [frame2, guid2, distance2] = a2;
-            if (guid1 == targetGuid) return false;
-            if (guid2 == targetGuid) return true;
+            // First sort priority: target
+            if (guid1 == targetGuid && guid2 != targetGuid) return false;
+            if (guid2 == targetGuid && guid1 != targetGuid) return true;
+            // Second sort priority: focus
+            if (guid1 == focusGuid && guid2 != focusGuid) return false;
+            if (guid2 == focusGuid && guid1 != focusGuid) return true;
+            // Third sort priority: camera distance
             return distance1 > distance2;
         });
 
